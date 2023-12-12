@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Financeiro</title>
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="asserts/apexcharts.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- =============== Sidebar ================ -->
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="logo-apple"></ion-icon>
+                        </span>
+                        <span class="title">Accussoft</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="speedometer-outline"></ion-icon>
+                        </span>
+                        <span onclick="dashboard()" class="title">Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </span>
+                        <span class="title">Customers</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="clipboard-outline"></ion-icon>
+                        </span>
+                        <span class="title">Projects</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="bag-outline"></ion-icon>
+                        </span>
+                        <span class="title">Orders</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="folder-outline"></ion-icon>
+                        </span>
+                        <span class="title">Inventory</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="person-circle-outline"></ion-icon>
+                        </span>
+                        <span class="title">Accounts</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <span class="icon">
+                            <ion-icon name="clipboard-outline"></ion-icon>
+                        </span>
+                        <span class="title">Tasks</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ========================= Navbar ==================== -->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+                <div class="search">
+                    <label>
+                        <input type="text" placeholder="Search here">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </label>
+                </div>
+
+                <li>
+                    <div class="user">
+                        <img src="monalisa.jpg" alt="">
+                    </div>
+                </li>                 
+            </div>
+
+          <!--   ======================= Cards ===================== -->
+            <div class="cardBox">
+                <div class="card">
+                    <div>
+                        <div class="numbers">$1504</div>
+                        <div class="cardName">Valor total das notas emitidas</div>
+                    </div>
+
+                    <div class="iconBx">
+                        <ion-icon name="cash-outline"></ion-icon>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <div class="numbers">$8430</div>
+                        <div class="cardName">Valor total das notas emitidas, mas sem ter a cobrança feita</div>
+                    </div>
+
+                    <div class="iconBx">
+                        <ion-icon name="cash-outline"></ion-icon>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <div class="numbers">$284</div>
+                        <div class="cardName">Valor total das notas vencidas - Inadimplência</div>
+                    </div>
+
+                    <div class="iconBx">
+                        <ion-icon name="cash-outline"></ion-icon>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div>
+                        <div class="numbers">$700</div>
+                        <div class="cardName">Valor total das notas a vencer</div>
+                    </div>
+
+                    <div class="iconBx">
+                        <ion-icon name="cash-outline"></ion-icon>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <div class="numbers">$7200</div>
+                        <div class="cardName">Valor total das notas pagas</div>
+                    </div>
+
+                    <div class="iconBx">
+                        <ion-icon name="cash-outline"></ion-icon>
+                    </div>
+                </div>
+            </div> 
+            <div class="charts-container">
+                <div id="grafico" class="charts"></div>
+                <div id="grafico2" class="charts"></div>
+            </div>
+
+            <!-- ================ Details List ================= -->
+
+            <div class="details">
+                <div class="recentOrders">
+                    <div>
+                        <h2>Filtros</h2>
+                        <form>
+                            <div class="form-row">
+                                <div class="col-md-3">
+
+                                    <label for="filtroMesEmissao">Filtrar por Mês de Emissão da Nota:</label>
+                                    <select  class="form-control" id="filtroMesEmissao">
+                                      <option value="todos">-</option>
+                                      <option value="01">Janeiro</option>
+                                      <option value="02">Fevereiro</option>
+                                      <!-- OBS: Adicionar os outros meses aqui -->
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="filtroMesCobranca">Filtrar por Mês de Cobrança:</label>
+                                    <select  class="form-control" id="filtroMesCobranca">
+                                      <option value="todos">-</option>
+                                      <option value="01">Janeiro</option>
+                                      <option value="02">Fevereiro</option>
+                                      <!-- OBS: Adicionar os outros meses aqui -->
+                                    </select>                             
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="filtroMesPagamento">Filtrar por Mês de Pagamento:</label>
+                                    <select  class="form-control" id="filtroMesPagamento">
+                                      <option value="todos">-</option>
+                                      <option value="01">Janeiro</option>
+                                      <option value="02">Fevereiro</option>
+                                      <!-- OBS: Adicionar os outros meses aqui -->
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="filtroStatus">Filtrar por Status da Nota:</label>
+                                    <select class="form-control" id="filtroStatus">
+                                      <option value="todos">-</option>
+                                      <option value="emitida">Emitida</option>
+                                      <option value="cobranca">Cobrança Realizada</option>
+                                      <option value="realizado">Pagamento Realizado</option>
+                                      <!-- OBS: Adicionar os outros status aqui -->
+                                    </select>  
+                                </div>  
+                            </div>
+                        </form>
+                    </div>  
+                        <table id="tabelaNotas">
+                            <thead>
+                              <tr>
+                                <th>Nome do Pagador</th>
+                                <th>Número da Nota</th>
+                                <th>Data de Emissão</th>
+                                <th>Data de Cobrança</th>
+                                <th>Data de Pagamento</th>
+                                <th>Valor da Nota</th>
+                                <th>Documento da Nota Fiscal</th>
+                                <th>Documento do Boleto Bancário</th>
+                                <th>Status da Nota</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <!-- OBS: Adicionar mais linhas aqui -->
+                              <tr>
+                                <td>Natalia Silva</td>
+                                <td>001</td>
+                                <td>2022-01-05</td>
+                                <td>2022-01-10</td>
+                                <td>2022-01-15</td>
+                                <td>R$ 100,00</td>
+                                <td>123456789</td>
+                                <td>987654321</td>
+                                <td>emitida</td>
+                              </tr>
+                              <tr>
+                                <td>Juliana Moça</td>
+                                <td>002</td>
+                                <td>2022-02-10</td>
+                                <td>2022-02-15</td>
+                                <td>2022-02-20</td>
+                                <td>R$ 150,00</td>
+                                <td>987654321</td>
+                                <td>123456789</td>
+                                <td>cobranca</td>
+                              </tr>
+                              <!-- OBS: Adicionar mais linhas aqui -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========== Scripts =========  -->
+    <script src="scripts.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- ====== Ionicons ======= -->
+    <script src='./node_modules/chart.js/dist/Chart.js'></script>
+    <script></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>
